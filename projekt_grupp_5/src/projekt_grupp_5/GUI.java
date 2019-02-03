@@ -2,8 +2,6 @@ package projekt_grupp_5;
 
 import java.awt.*;
 import java.awt.event.*;
-
-
 import javax.swing.*;
 
 
@@ -27,36 +25,36 @@ public class GUI {
 	public void makePanels(Container contentPane) {
 		contentPane.setLayout(new GridLayout(3,2,3,3));
 		JButton start = new JButton("START");
-
-
 		//procedur när start trycks
 		start.addActionListener(
-				(ActionEvent e) -> {test(); }
+				(ActionEvent e) -> {start(); }
 				);
 		contentPane.add(start);
 
-
 		JButton HS = new JButton("HIGH SCORE");
 		HS.addActionListener(
-				(ActionEvent e) -> {test2(); }
+				(ActionEvent e) -> {HS(); }
 				);
-
-
 		contentPane.add(HS);
-
-
 	}
 
-	private void test() {
+	//funktion för att trigga igång spelet
+	private void start() {
 		System.out.println("testar START \n");
-		//hur tar man bort gridlayouten och startar spelet
+		
 		contentPane.removeAll();
 		contentPane.repaint();
 		//anropa funktion som startar spelet
-		contentPane.add(new JLabel("test"));
+		//game.start();
+		
+		//skapa bird
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/bird.png"));
+		Bird untz = new Bird(img);
+		contentPane.add(untz);
 	}
 
-	private void test2() {
+	//funktion för att trigga HighScore
+	private void HS() {
 		System.out.println("testar HIGH SCORE \n");}
 	
 }
