@@ -9,7 +9,7 @@ import javax.swing.*;
 
 public class GUI {
 	private JFrame frame;
-    private Container contentPane;
+	private Container contentPane;
 	public GUI() {
 		makefram();
 	}
@@ -50,17 +50,13 @@ public class GUI {
 	private void test() {
 		System.out.println("testar START \n");
 		//hur tar man bort gridlayouten och startar spelet
-		
 		contentPane.removeAll();
 		contentPane.repaint();
-		
 		//anropa funktion som startar spelet
-		
 		contentPane.add(new JLabel("test"));
-		
-		
 	}
 
 	private void test2() {
 		System.out.println("testar HIGH SCORE \n");}
+	
 }
