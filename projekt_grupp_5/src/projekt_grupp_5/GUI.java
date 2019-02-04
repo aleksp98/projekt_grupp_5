@@ -11,7 +11,9 @@ public class GUI implements KeyListener, ActionListener  {
 	private Bird untz;
     private Dimension size;
     private int y_pos = 200;
-    Timer timer = new Timer(300,this); // Swing-timer
+    
+    JLabel background;
+    Timer timer = new Timer(600,this); // Swing-timer
 	
 	public GUI() {
 		makefram();
@@ -20,19 +22,21 @@ public class GUI implements KeyListener, ActionListener  {
 	private void makefram() {
 		frame = new JFrame("FLAPPY BIRDS");
 		contentPane = frame.getContentPane();
-		//makeMenuBar(frame);
-		
-		 
+
 		//skapa paneler
 		makePanels(contentPane);
-		 
+		 //lägg  till knapp avlyssnare i JFramen
 		frame.addKeyListener(this);
-		frame.pack();
-		frame.setSize(1000,1000);
+		//frame.pack();
+		
+		//storlek på jFRame
+		frame.setSize(1280,800);
 		frame.setVisible(true);
 	}
 
+	//skapar knapparna till start menyn och 
 	public void makePanels(Container contentPane) {
+		
 		contentPane.setLayout(new GridLayout(3,2,3,3));
 		JButton start = new JButton("START");
 		//procedur när start trycks
@@ -51,23 +55,26 @@ public class GUI implements KeyListener, ActionListener  {
 	//funktion för att trigga igång spelet
 	private void start() {
 		System.out.println("testar START \n");
-		
+		//rensar bort start meny
 		contentPane.removeAll();
 		
-		//anropa funktion som startar spelet
+		//anropa funktion som startar spelet?????
 		//game.start();
 		
 		//skapa bird
 		ImageIcon img = new ImageIcon(this.getClass().getResource("/bird.png"));
-		
 		untz = new Bird(img);
-		
 		 size = untz.getPreferredSize();
-	  
 		 untz.setBounds(400, 200, size.width, size.height);
-		 
 		contentPane.add(untz);
 		
+		//skapa background
+        ImageIcon back = new ImageIcon(this.getClass().getResource("/sten.jpg"));
+		background = new JLabel(back);
+		background.setBounds(0, 0,1280,800);
+		contentPane.add(background);
+		
+		//starta timer för att fågeln ska automatiskt åka nedåt
 		timer.start();
 		
 		contentPane.repaint();
@@ -75,11 +82,13 @@ public class GUI implements KeyListener, ActionListener  {
 
 	//funktion för att trigga HighScore
 	private void HS() {
-		System.out.println("testar HIGH SCORE \n");}
+		System.out.println("testar HIGH SCORE \n");
+		}
 	
-	 public void keyReleased(KeyEvent e) {}
-	    public void keyTyped(KeyEvent e) {}
+	 public void keyPressed (KeyEvent e) {}
+	 public void keyTyped(KeyEvent e) {}
 	    
+	 //timer ropar upp den här funktionen för att få fågelna att åka ner
 	    public void actionPerformed(ActionEvent e) {
 	    	y_pos = y_pos + 10;
         	untz.setBounds(400, y_pos, size.width, size.height);
@@ -88,7 +97,7 @@ public class GUI implements KeyListener, ActionListener  {
 	
 	
 	 @Override
-	    public void keyPressed(KeyEvent e) {
+	    public void keyReleased(KeyEvent e) {
 	        if (e.getKeyCode() == KeyEvent.VK_UP) {
 	    		System.out.println("testar key UP \n");
 	        	y_pos = y_pos - 10;
