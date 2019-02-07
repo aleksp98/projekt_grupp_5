@@ -15,16 +15,17 @@ public class Bird extends JLabel {
 	{
 	setImage();
 	Dimension size = getPreferredSize();
+	
+	width = size.width;
+	height = size.height;
 
 	//ger position till fågeln och skapar bilden
-	setPosition(400, 200, size.width, size.height);
+	setPosition(400, 200);
 	}
 	
-	public void setPosition(int x, int y, int width, int height) {
+	public void setPosition(int x, int y) {
 		x_position = x;
 		y_position = y;
-		this.width = width;
-		this.height = height;
 		setBounds(x, y, width, height);	
 	}
 	
@@ -40,6 +41,8 @@ public class Bird extends JLabel {
 	public int getWidth() {return width;}
 	
 	public int getHeight() {return height;}
+	
+	
 	
 	
 }

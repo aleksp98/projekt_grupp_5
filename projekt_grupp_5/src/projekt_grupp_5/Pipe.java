@@ -15,6 +15,7 @@ public class Pipe extends JLabel{
 		
 		setImage();
 		Dimension size = getPreferredSize();
+
 		
 	}
 	
