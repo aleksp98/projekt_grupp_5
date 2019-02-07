@@ -11,10 +11,12 @@ public class Pipe extends JLabel{
 	private int height;
 	private int width;
 	private ImageIcon img = new ImageIcon(this.getClass().getResource("/pipe.jpg"));
-	public Pipe() {
-		
+	private Dimension size;
+	private Boolean upPipe;
+	public Pipe(Boolean uPipe) {
+		this.upPipe = uPipe; 
 		setImage();
-		Dimension size = getPreferredSize();
+		size = getPreferredSize();
 
 		
 	}
@@ -33,12 +35,16 @@ public class Pipe extends JLabel{
 		super.setIcon(img);
 	}
 	
+	public int prefWidth() {return size.width/5;}
+	public int prefHeight() {return size.height/5;}
 	
-   public int getX() {return x_position;}
+    public int getX() {return x_position;}
 	
 	public int getY() {return y_position;}
 	
 	public int getWidth() {return width;}
 	
 	public int getHeight() {return height;}
+	
+	public boolean upPipe() {return upPipe;}
 }
