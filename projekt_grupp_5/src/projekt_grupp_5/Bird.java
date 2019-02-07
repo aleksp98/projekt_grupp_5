@@ -4,15 +4,20 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class Bird extends JLabel {
-	//private ImageIcon img;
+	
 	private int  y_position;
 	private int  x_position;
 	private int height;
 	private int width;
+	private ImageIcon img = new ImageIcon(this.getClass().getResource("/bird.png"));
 	
-	public Bird(ImageIcon img) 
+	public Bird() 
 	{
-		super(img);
+	setImage();
+	Dimension size = getPreferredSize();
+
+	//ger position till fågeln och skapar bilden
+	setPosition(400, 200, size.width, size.height);
 	}
 	
 	public void setPosition(int x, int y, int width, int height) {
@@ -23,6 +28,11 @@ public class Bird extends JLabel {
 		setBounds(x, y, width, height);	
 	}
 	
+	private void setImage() {
+		super.setIcon(img);
+	}
+	
+
 	public int getX() {return x_position;}
 	
 	public int getY() {return y_position;}
