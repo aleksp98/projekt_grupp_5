@@ -9,7 +9,7 @@ public class Bird extends JLabel {
 	private int  x_position;
 	private int height;
 	private int width;
-	private ImageIcon img = new ImageIcon(this.getClass().getResource("/bird.png"));
+	private ImageIcon img = new ImageIcon(this.getClass().getResource("/swing.gif"));
 	
 	public Bird() 
 	{

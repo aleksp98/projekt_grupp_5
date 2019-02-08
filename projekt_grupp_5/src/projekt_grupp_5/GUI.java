@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.util.Random;
 
 
-public class GUI implements KeyListener, ActionListener  {
+public class GUI implements KeyListener, ActionListener{
 	private JFrame frame;
 	private Container contentPane;
 	private Bird untz;
@@ -40,7 +40,6 @@ public class GUI implements KeyListener, ActionListener  {
 
 	//skapar knapparna till start menyn och 
 	public void makePanels(Container contentPane) {
-
 		contentPane.setLayout(new GridLayout(3,2,3,3));
 		JButton start = new JButton("START");
 		//procedur när start trycks
@@ -115,13 +114,10 @@ public class GUI implements KeyListener, ActionListener  {
 		int random = rand.nextInt(150)-150;
 		kaos = pipe.prefHeight() + random;
 		pipe.setPosition(x_pos, 0 , pipe.prefWidth(), kaos );
-
 	}
 	private void downPipe(int x_pos,Pipe pipe) {
-		pipe.setPosition(x_pos, (500+kaos) , pipe.prefWidth(), pipe.prefHeight()*4 );
+		pipe.setPosition(x_pos, (500+kaos) , pipe.prefWidth(), pipe.prefHeight()*6 );
 	}
-
-
 
 	//funktion för att trigga HighScore
 	private void HS() {
@@ -159,9 +155,6 @@ public class GUI implements KeyListener, ActionListener  {
 			}
 		}
 	} 
-
-
-
 
 	@Override
 	//vid klick upp så skall fågeln röra sig uppåt
