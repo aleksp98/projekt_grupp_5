@@ -7,7 +7,7 @@ public class Bird extends JLabel {
 	
 	private int  y_position;
 	private int fuckalll;
-	private int fuckall2;
+	private int fuckall3;
 	private int  x_position;
 	private int height;
 	private int width;
