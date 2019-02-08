@@ -6,6 +6,7 @@ import javax.swing.*;
 public class Bird extends JLabel {
 	
 	private int  y_position;
+	private int fuckall;
 	private int  x_position;
 	private int height;
 	private int width;
