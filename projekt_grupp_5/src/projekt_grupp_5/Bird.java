@@ -11,7 +11,7 @@ public class Bird extends JLabel {
 	private int  x_position;
 	private int height;
 	private int width;
-	private ImageIcon img = new ImageIcon(this.getClass().getResource("/swing.gif"));
+	private ImageIcon img = new ImageIcon(this.getClass().getResource("/bird_down.png"));
 	
 	public Bird() 
 	{
@@ -22,7 +22,7 @@ public class Bird extends JLabel {
 	height = size.height;
 
 	//ger position till fågeln och skapar bilden
-	setPosition(400, 200);
+	setPosition(100, 200);
 	}
 	
 	public void setPosition(int x, int y) {

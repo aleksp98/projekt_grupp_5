@@ -10,11 +10,11 @@ public class GUI implements KeyListener, ActionListener{
 	private JFrame frame;
 	private Container contentPane;
 	private Bird untz;
-
-	//fågelns y position
-	private int y_pos = 200;
 	private static int period = 150;
-	private Pipe array[] = new Pipe[6];
+	private Pipe pU[] = new Pipe[3];
+	private Pipe pD[] = new Pipe[3];
+    
+	private final int WIDTH = 800, HEIGHT = 800;
 	int kaos;
 
 	//ändra tiden för att återopa funktionen
@@ -34,7 +34,7 @@ public class GUI implements KeyListener, ActionListener{
 		frame.addKeyListener(this);
 		frame.pack();
 		//storlek på jFRame
-		frame.setSize(1280,850);
+		frame.setSize(WIDTH,HEIGHT);
 		frame.setVisible(true);
 	}
 
@@ -69,7 +69,7 @@ public class GUI implements KeyListener, ActionListener{
 		//skapa bakground
 		ImageIcon back = new ImageIcon(this.getClass().getResource("/sten.jpg"));
 		JLabel background = new JLabel(back);
-		background.setBounds(0, 0,1280,800);
+		background.setBounds(0, 0,WIDTH,HEIGHT);
 		contentPane.add(background);
 		//starta timer för att fågeln automatiskt skall åka nedåt
 		timer.start();
@@ -82,41 +82,32 @@ public class GUI implements KeyListener, ActionListener{
 	//funktionen move anropas efter en viss period 0.5s ?
 	//om pipe åker förbi skärmen ändras positionen så att den kommer tillbaka
 	private void makepipes() {
-		boolean upPipe = true;
+		int set = WIDTH;
+		for(int i = 0; i<3; i++) {
+			Pipe up = new Pipe();	
+			int height = up.prefHeight();
+			upPipe(set,height,up);
+			pU[i] = up;
+			contentPane.add(up);
 
-		int set = 1280;
-		int set2 = 1280;
-		for(int i = 0; i<6; i++) {
-
-			if(upPipe == true) {	
-				Pipe p = new Pipe(true);
-				upPipe(set,p);
-				array[i] = p;
-				contentPane.add(p);
-				set = set + 500;
-			}
-
-			if(upPipe == false) {
-				Pipe pipe = new Pipe(false);
-				downPipe(set2,pipe);
-				array[i] = pipe;
-				contentPane.add(pipe);
-				set2 = set2 + 500;
-			}
-			upPipe = !upPipe;
+			Pipe pipeDown = new Pipe();
+			downPipe(set,600,pipeDown);
+			pD[i] = pipeDown;
+			contentPane.add(pipeDown);	
+			set = set +300;
 		}
 	}
 
 
 
-	private void upPipe(int x_pos, Pipe pipe) {
-		Random rand = new Random();
-		int random = rand.nextInt(150)-150;
-		kaos = pipe.prefHeight() + random;
-		pipe.setPosition(x_pos, 0 , pipe.prefWidth(), kaos );
+	private void upPipe(int x_pos,int height, Pipe pipe) {
+		//		Random rand = new Random();
+		//		int random = rand.nextInt(200) - 100;
+		//		kaos = pipe.prefHeight() + random;	
+		pipe.setPosition(x_pos, 0, pipe.prefWidth(), height);
 	}
-	private void downPipe(int x_pos,Pipe pipe) {
-		pipe.setPosition(x_pos, (500+kaos) , pipe.prefWidth(), pipe.prefHeight()*6 );
+	private void downPipe(int x_pos,int y_pos, Pipe pipe) {
+		pipe.setPosition(x_pos, y_pos, pipe.prefWidth(), pipe.prefHeight());
 	}
 
 	//funktion för att trigga HighScore
@@ -128,31 +119,57 @@ public class GUI implements KeyListener, ActionListener{
 	// testa med att flytta rören också
 	public void actionPerformed(ActionEvent e) {
 		///////////////////////////////////////fågeln
-		y_pos = y_pos + 40;
-		untz.setPosition(400, y_pos);
+		int y = untz.getY() + 40;
+
+		untz.setPosition(100, y);
 		//contentPane.repaint(); 
 		////////////////////////////////////////////
 		///////////////////////////////////////////få rören att rören röra pås sig
-		for(Pipe test : array) {
-			int x_pos =	test.getX();
-			int y_pos = test.getY();
+		for(int i= 0; i<3 ;i++) {
+			
+         //om fågel nuddar taket
+			if(untz.getY() < 0) {
+				timer.stop();
+				frame.dispose();
+				makefram();
+				return;	
+			}
 
-			if(test.upPipe() == true) {
-				if(x_pos < 0 - test.prefWidth()) {
-					upPipe(1280, test);
-				}
-				else {
-					test.setPosition(x_pos-40,  y_pos , test.prefWidth(), test.prefHeight());
-				}
+             //om fågeln nuddar taket
+			if(untz.getY() > (HEIGHT-untz.getHeight())) {
+				timer.stop();
+				frame.dispose();
+				makefram();
+				return;
 			}
-			if(test.upPipe() == false) {
-				if(x_pos < 0 - test.prefWidth()) {
-					downPipe(1280, test);
+			
+			if(untz.getY()< pU[i].getY()+ pU[i].getHeight() && (untz.getX()>= pU[i].getX() &&   untz.getX()<= pU[i].getX()+ pU[i].getWidth()    ) ) {
+				timer.stop();
+			frame.dispose();
+			makefram();
+				return;
 				}
-				else {
-					test.setPosition(x_pos-40,  y_pos , test.prefWidth(), test.prefHeight()*4);
-				}
+
+
+			int x_pos =	pU[i].getX();
+
+			if(x_pos < 0 - pU[i].prefWidth()) {
+
+				Random rand = new Random();
+				int random = rand.nextInt(200) - 100;
+				int testhojd = pU[i].prefHeight() + random;	
+				int Position2 = testhojd+ 600 - 200;
+				upPipe(WIDTH,testhojd, pU[i]);
+				downPipe(WIDTH,Position2, pD[i]);
 			}
+			else {
+
+				pU[i].setPosition(x_pos-40, 0 , pU[i].prefWidth(), pU[i].getHeight());
+				pD[i].setPosition(x_pos-40, pD[i].getY() , pD[i].prefWidth(), pD[i].prefHeight());
+
+			}
+
+
 		}
 	} 
 
@@ -161,8 +178,8 @@ public class GUI implements KeyListener, ActionListener{
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			System.out.println("testar key UP \n");
-			y_pos = y_pos - 100;
-			untz.setPosition(400, y_pos);
+			int y = untz.getY() - 100;
+			untz.setPosition(100, y);
 			contentPane.repaint(); 
 		}
 	}

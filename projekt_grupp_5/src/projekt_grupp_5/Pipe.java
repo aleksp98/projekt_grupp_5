@@ -8,34 +8,43 @@ public class Pipe extends JLabel{
 	private int  x_position;
 	private int height;
 	private int width;
-	private Dimension size;
-	private Boolean upPipe;
+	Dimension size;
+
 	
-	public Pipe(Boolean uPipe) {
-		this.upPipe = uPipe; 
-		setImage();
+	
+	public Pipe() {
+		
+		ImageIcon img = new ImageIcon(this.getClass().getResource("/test.jpg"));
+		
+		setImage(img);
+		
 		size = getPreferredSize();
+		
+		width = size.width;
+		height = size.height;
+		
+		setPosition(1280,0,size.width,size.height);
+		
 	}
 	
-	public void setPosition(int x, int y, int width, int height) {
+	public void setPosition(int x, int y, int width2, int height2) {
 		x_position = x;
 		y_position = y;
-		this.width = width;
-		this.height = height;
-		setBounds(x, y, width, height);	
+		this.width = width2;
+		this.height = height2;
+		setBounds(x, y, width2, height2);	
 	}
 	
 	
-	private void setImage() {
-		ImageIcon img = new ImageIcon(this.getClass().getResource("/green.gif"));
+	private void setImage(ImageIcon img) {
+		
 		super.setIcon(img);
 	}
 	
-	public int prefWidth() {return size.width/5;}
-	public int prefHeight() {return size.height/3;}
+	public int prefWidth() {return size.width;}
+	public int prefHeight() {return size.height;}
     public int getX() {return x_position;}
 	public int getY() {return y_position;}
 	public int getWidth() {return width;}
 	public int getHeight() {return height;}
-	public boolean upPipe() {return upPipe;}
 }
